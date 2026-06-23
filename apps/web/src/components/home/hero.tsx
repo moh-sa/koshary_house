@@ -39,7 +39,7 @@ export function Hero() {
           <div className="bg-warm-gradient absolute -inset-4 rounded-[2rem] opacity-20 blur-2xl" />
           <div className="relative aspect-square overflow-hidden rounded-[2rem] border shadow-xl">
             <ProductImage
-              src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=900&q=80"
+              src="https://res.cloudinary.com/tno/image/upload/v1782258575/koshary-house/Egyptian-Koshari-1_piudbd.webp"
               alt={t("heroTitle")}
               sizes="(max-width: 768px) 100vw, 50vw"
               priority
