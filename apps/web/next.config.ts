@@ -8,8 +8,6 @@ loadEnv({ path: "../../.env" });
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
-const API_TARGET = process.env.API_PROXY_TARGET ?? "http://localhost:8000";
-
 const nextConfig: NextConfig = {
   // Allow the contract/db workspace packages to be transpiled.
   transpilePackages: ["@food/contract"],
@@ -21,14 +19,10 @@ const nextConfig: NextConfig = {
     ],
   },
   // Same-origin proxy: the browser talks to /api/* and /rpc/* on the web
-  // origin; Next forwards to the Express API so auth cookies "just work".
-  async rewrites() {
-    return [
-      { source: "/api/auth/:path*", destination: `${API_TARGET}/api/auth/:path*` },
-      { source: "/rpc/:path*", destination: `${API_TARGET}/rpc/:path*` },
-      { source: "/payments/:path*", destination: `${API_TARGET}/payments/:path*` },
-    ];
-  },
+  // origin; route handlers under those paths forward to the Express API via
+  // fetch() so auth cookies "just work" (see src/lib/api-proxy.ts — using
+  // Next's declarative `rewrites()` here breaks on Railway's domains, which
+  // Vercel's rewrite engine flags as resolving to a private IP).
 };
 
 export default withNextIntl(nextConfig);
