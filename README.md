@@ -5,8 +5,12 @@ task. Modern Egyptian / Middle‑Eastern concept, fully bilingual (**English +
 Arabic with RTL**), with online + cash payments, live order tracking, and an
 admin dashboard.
 
-> Demo logins — **Admin:** `admin@koshary.test` / `Admin12345` · **Customer:**
-> `customer@koshary.test` / `Customer12345`
+**Live demo:**
+[koshary-house-web.vercel.app](https://koshary-house-web.vercel.app) ·
+**Portfolio:** [moh-sa.dev](https://moh-sa.dev) · **LinkedIn:**
+[linkedin.com/in/moh-sa](https://linkedin.com/in/moh-sa)
+
+![Koshary House menu page](assets/menu.webp)
 
 ## ✨ Features
 
@@ -42,7 +46,7 @@ admin dashboard.
 
 ## 📁 Structure
 
-```
+```plaintext
 apps/
   web/        Next.js frontend (consumes the API)
   api/        Express + oRPC API, better-auth, Drizzle, Paymob
@@ -113,18 +117,8 @@ The entire API is defined once as an oRPC contract in `packages/contract` and is
 available as both a typed RPC client (used by the web app) and an OpenAPI REST
 surface with an interactive Scalar UI at `/docs`.
 
-## Done
+## Payment
 
-- [x] Admin order details page (`/admin/orders/[id]`) with timeline + status control.
-- [x] Product image **upload** (create + update) via Cloudinary — set
-      `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` + `NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET`
-      (an _unsigned_ upload preset). Falls back to a URL field if unset.
-- [x] Revenue chart timezone bug fixed (day buckets computed in a fixed tz).
-- [x] Revenue counts **delivered + paid** orders only; COD orders are marked
-      paid when delivered.
-- [x] All datetime columns stored as `timestamptz`.
-- [x] Order-tracking connector lines now span fully between steps.
-
-> **Paymob:** real gateway is used only in production (or `PAYMOB_FORCE_LIVE=true`
-> with a public webhook tunnel); local dev uses the mock so orders never stall on
-> an unreachable webhook.
+**Paymob:** real gateway is used only in production (or `PAYMOB_FORCE_LIVE=true`
+with a public webhook tunnel); local dev uses the mock so orders never stall on
+an unreachable webhook.
