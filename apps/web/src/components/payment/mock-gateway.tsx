@@ -3,7 +3,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { CreditCard, Loader2, ShieldCheck } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -18,12 +17,10 @@ import { useRouter } from "@/i18n/navigation";
 import { orpc } from "@/lib/orpc";
 import { formatPrice } from "@/lib/utils";
 
-export function MockGateway() {
+export function MockGateway({ orderId }: { orderId: string }) {
   const t = useTranslations("payment");
   const locale = useLocale();
   const router = useRouter();
-  const params = useSearchParams();
-  const orderId = params.get("order") ?? "";
   const [pending, setPending] = useState<"pay" | "cancel" | null>(null);
 
   const { data } = useQuery(
@@ -43,9 +40,7 @@ export function MockGateway() {
         body: JSON.stringify({ success }),
       });
     } finally {
-      router.push(
-        `/checkout/${success ? "success" : "failed"}?order=${orderId}`,
-      );
+      router.push(`/checkout/${success ? "success" : "failed"}/${orderId}`);
     }
   }
 

@@ -1,19 +1,14 @@
 import { setRequestLocale } from "next-intl/server";
-import { Suspense } from "react";
 
 import { MockGateway } from "@/components/payment/mock-gateway";
 
 export default async function MockPaymentPage({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: string; orderId: string }>;
 }) {
-  const { locale } = await params;
+  const { locale, orderId } = await params;
   setRequestLocale(locale);
 
-  return (
-    <Suspense>
-      <MockGateway />
-    </Suspense>
-  );
+  return <MockGateway orderId={orderId} />;
 }

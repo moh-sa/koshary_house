@@ -34,7 +34,7 @@ export async function createPaymentSession(
       );
     }
     return {
-      paymentUrl: `${env.WEB_ORIGIN}/${input.locale}/checkout/mock?order=${input.orderId}`,
+      paymentUrl: `${env.WEB_ORIGIN}/${input.locale}/checkout/mock/${input.orderId}`,
       paymobOrderId: null,
     };
   }
@@ -61,7 +61,10 @@ export async function createPaymentSession(
         phone_number: input.customer.phone,
       },
       extras: { order_id: input.orderId },
-      redirection_url: `${env.WEB_ORIGIN}/${input.locale}/checkout/success?order=${input.orderId}`,
+      // Path segment, not a query param: Paymob discards whatever query
+      // string we pass and appends its own (which includes its own "order"
+      // and "id" keys) — a query param here would get silently overwritten.
+      redirection_url: `${env.WEB_ORIGIN}/${input.locale}/checkout/success/${input.orderId}`,
     }),
   });
 

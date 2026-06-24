@@ -9,7 +9,7 @@ export function PaymentResult({
   orderId,
 }: {
   kind: "success" | "failed";
-  orderId?: string;
+  orderId: string;
 }) {
   const t = useTranslations("payment");
   const ok = kind === "success";
@@ -28,11 +28,9 @@ export function PaymentResult({
         {t(ok ? "successDesc" : "failedDesc")}
       </p>
       <div className="mt-2 flex flex-wrap justify-center gap-3">
-        {orderId && (
-          <Button asChild>
-            <Link href={`/orders/${orderId}`}>{t("viewOrder")}</Link>
-          </Button>
-        )}
+        <Button asChild>
+          <Link href={`/orders/${orderId}`}>{t("viewOrder")}</Link>
+        </Button>
         <Button asChild variant="outline">
           <Link href="/menu">{t("backToMenu")}</Link>
         </Button>
